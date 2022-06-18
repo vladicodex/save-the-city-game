@@ -57,3 +57,7 @@ function updateArea() {
     bomb.newPos();
     bomb.update();
 }
+
+function fall(n) {
+    bomb.gravity = n;
+}
