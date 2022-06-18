@@ -40,5 +40,13 @@ function component(width, height, color, x, y, type) {
         this.gravitySpeed += this.gravity;
         this.x += this.speedX;
         this.y += this.speedY + this.gravitySpeed;
+        this.hitBottom();
+    }
+    this.hitBottom = function() {
+        var areaBottom = area.canvas.height - this.height;
+        if (this.y >= areaBottom) {
+            alert("G A M E  O V E R");
+            startGame();
+        }
     }
 }
