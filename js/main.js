@@ -12,6 +12,7 @@ var area = {
         this.canvas.height = 500;
         this.context = this.canvas.getContext("2d");
         //document.body.insertBefore(this.canvas, document.body.childNodes[0]);
+        this.interval = setInterval(updateArea, 100);        
     },
     stop : function() {
         clearInterval(this.interval);
@@ -49,4 +50,10 @@ function component(width, height, color, x, y, type) {
             startGame();
         }
     }
+}
+
+function updateArea() {
+    area.clear();
+    bomb.newPos();
+    bomb.update();
 }
