@@ -37,7 +37,6 @@ function keyDown(e){
   console.log(e.key);
   letter = text[0];
   if (e.key == letter){
-    console.log("Correct!");
     text = text.substring(1);
     textDisplay.innerHTML = text;
     meteoriteY -= 40;
