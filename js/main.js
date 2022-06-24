@@ -52,7 +52,7 @@ function movemeteorite(){
 
 //Explosion
 function gameOver(){
-    var audio = document.getElementById('explosion');
-    audio.play();
+    var sound = document.getElementById('explosion');
+    sound.play();
     alert("SE EXTINGUIO JURASSIC WORLD");
 }
