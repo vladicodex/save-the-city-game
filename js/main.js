@@ -18,7 +18,7 @@ window.onkeydown = function(e) { keyDown(e) };
 background.onload = function(){
   var interval = setInterval( function () {
     movemeteorite();
-    if (meteoriteY == 250){
+    if (meteoriteY == 530){
       clearInterval(interval);
       gameOver();
     }
