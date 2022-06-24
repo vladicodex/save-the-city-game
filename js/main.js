@@ -1,63 +1,59 @@
-var bomb;
+//Variables
+var canvas = document.getElementById('canvas');
+context = canvas.getContext('2d');
+background = new Image();
+background.src = '../img/background.png';
+meteorite = new Image();
+meteorite.src = '../img/meteorite.png';
+var meteoriteX = 350;
+var meteoriteY = -100;
+var gravity = 50; //Velocidad de caída
+var text = "SAVE ME PLEASE!";
+var textDisplay = document.getElementById('textDisplay');
 
-function startGame() {
-    bomb = new component(20, 50, "orange", 240, -50);
-    area.start();
+//Event listener
+window.onkeydown = function(e) { keyDown(e) };
+
+//Load
+background.onload = function(){
+  var interval = setInterval( function () {
+    movemeteorite();
+    if (meteoriteY == 250){
+      clearInterval(interval);
+      gameOver();
+    }
+  }, gravity);
+
 }
 
-var area = {
-    canvas : document.getElementById("canvas"),
-    start : function() {
-        this.canvas.width = 500;
-        this.canvas.height = 500;
-        this.context = this.canvas.getContext("2d");
-        //document.body.insertBefore(this.canvas, document.body.childNodes[0]);
-        this.interval = setInterval(updateArea, 100);        
-    },
-    stop : function() {
-        clearInterval(this.interval);
-    },    
-    clear : function() {
-        this.context.clearRect(0, 0, this.canvas.width, this.canvas.height);
-    }
+//Draw
+function drawAll(){
+    context.drawImage(background, 0, 0);
+    context.drawImage(meteorite, meteoriteX, meteoriteY, 100, 100);
 }
 
-function component(width, height, color, x, y, type) {
-    this.type = type;
-    this.width = width;
-    this.height = height;
-    this.x = x;
-    this.y = y;    
-    this.speedX = 0;
-    this.speedY = 0;    
-    this.gravity = 0.05;
-    this.gravitySpeed = 0;
-    this.update = function() {
-        ctx = area.context;
-        ctx.fillStyle = color;
-        ctx.fillRect(this.x, this.y, this.width, this.height);
-    }
-    this.newPos = function() {
-        this.gravitySpeed += this.gravity;
-        this.x += this.speedX;
-        this.y += this.speedY + this.gravitySpeed;
-        this.hitBottom();
-    }
-    this.hitBottom = function() {
-        var areaBottom = area.canvas.height - this.height;
-        if (this.y >= areaBottom) {
-            alert("G A M E  O V E R");
-            startGame();
-        }
-    }
+//Keyboard Listener
+function keyDown(e){
+  console.log(e.key);
+  letter = text[0];
+  if (e.key == letter){
+    console.log("Correct!");
+    text = text.substring(1);
+    textDisplay.innerHTML = text;
+    meteoriteY -= 40;
+    console.log(meteoriteY);
+  }
 }
 
-function updateArea() {
-    area.clear();
-    bomb.newPos();
-    bomb.update();
+//Meteorite movement
+function movemeteorite(){
+  meteoriteY += 5;
+  drawAll();
 }
 
-function fall(n) {
-    bomb.gravity = n;
+//Explosion
+function gameOver(){
+    var audio = document.getElementById('explosion');
+    audio.play();
+    alert("SE EXTINGUIO JURASSIC WORLD");
 }
